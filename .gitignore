@@ -1,3 +1,17 @@
+# GCP Credentials - never commit this!
+gcp_credentials.json
+*.json
+
+# Environment variables
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -216,3 +230,5 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+#
