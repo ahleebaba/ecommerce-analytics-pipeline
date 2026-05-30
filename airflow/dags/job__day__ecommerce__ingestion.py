@@ -51,6 +51,7 @@ with DAG(
             echo "Airbyte response: $RESPONSE"
             echo "Airbyte sync triggered successfully"
         """,
+        outlets=[ECOMMERCE_RAW],
     )
 
     # ── Task 2: Wait for Airbyte sync to complete ─────────────────
