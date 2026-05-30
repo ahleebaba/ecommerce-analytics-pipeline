@@ -1,0 +1,46 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'ecommerce_pipeline'
+version: '1.0.0'
+config-version: 2    # dbt config format version
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'ecommerce_pipeline'    # links to profiles.yml — tells dbt which BigQuery connection to use
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]     # where your SQL models live
+analysis-paths: ["analyses"]   # ad-hoc analysis queries
+test-paths: ["tests"]          # data quality tests
+seed-paths: ["seeds"]          # CSV files to load into BigQuery
+macro-paths: ["macros"]        # reusable SQL functions
+snapshot-paths: ["snapshots"]  # SCD2 snapshot models
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"        # compiled SQL output folder
+  - "dbt_packages"  # installed dbt packages
+
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+
+models:
+  ecommerce_pipeline:        # must match project name above
+    staging:                 # applies to all models in models/staging/
+      +schema: post_ingest_ecommerce    # writes to this BigQuery dataset
+      +materialized: view               # creates as SQL view (not table)
+    intermediate:            # applies to all models in models/intermediate/
+      +schema: hub_ecommerce            # writes to this BigQuery dataset
+      +materialized: view               # creates as SQL view
+    marts:                   # applies to all models in models/marts/
+      +schema: warehouse_ecommerce      # writes to this BigQuery dataset
+      +materialized: table              # creates as physical table
+
+
+
+
+      
