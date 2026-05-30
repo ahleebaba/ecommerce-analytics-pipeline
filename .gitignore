@@ -6,6 +6,9 @@ gcp_credentials.json
 .env
 *.env
 
+# Python virtual environment
+enrichment_env/
+
 # Python
 __pycache__/
 *.pyc
@@ -232,3 +235,4 @@ __marimo__/
 .streamlit/secrets.toml
 
 #
+.env

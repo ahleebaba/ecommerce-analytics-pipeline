@@ -1,0 +1,67 @@
+version: "0.29.0"
+definitions:
+  selector:
+    extractor:
+      field_path: ["{{ parameters.field_path }}"]
+  requester:
+    url_base: "https://dummyjson.com"
+    http_method: "GET"
+  retriever:
+    record_selector:
+      $ref: "#/definitions/selector"
+    requester:
+      $ref: "#/definitions/requester"
+
+streams:
+  - name: products
+    primary_key: "id"
+    $parameters:
+      field_path: "products"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+        path: "/products?limit=0"
+
+  - name: users
+    primary_key: "id"
+    $parameters:
+      field_path: "users"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+        path: "/users?limit=0"
+
+  - name: carts
+    primary_key: "id"
+    $parameters:
+      field_path: "carts"
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+        path: "/carts?limit=0"
+
+  - name: categories
+    primary_key: "slug"
+    $parameters:
+      field_path: []
+    retriever:
+      $ref: "#/definitions/retriever"
+      requester:
+        $ref: "#/definitions/requester"
+        path: "/products/categories"
+
+check:
+  stream_names:
+    - "products"
+
+spec:
+  documentation_url: https://dummyjson.com/docs
+  connection_specification:
+    $schema: http://json-schema.org/draft-07/schema#
+    title: DummyJSON E-commerce API
+    type: object
+    required: []
+    properties: {}
