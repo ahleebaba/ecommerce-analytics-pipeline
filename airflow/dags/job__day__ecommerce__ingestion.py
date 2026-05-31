@@ -1,5 +1,7 @@
 """
+"""
 DAG 1: Ecommerce Ingestion Pipeline
+Last updated: 2026-05-31 — git-sync test
 Handles Airbyte sync only.
 
 Emits dataset signal ECOMMERCE_RAW when complete
