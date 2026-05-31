@@ -13,10 +13,14 @@ jobs:
       - name: Pull Latest Changes from GitHub
         run: |
           cd /home/lee_jun_yan/airflow/dags_repo
-          git pull origin main
+          git fetch origin
+          git reset --hard origin/main
 
       - name: Sanitize Line Endings and Force Airflow Sync
         run: |
+          # Sanitize all Python scripts inside the actual repo path
           find /home/lee_jun_yan/airflow/dags_repo/airflow/dags/ -name "*.py" -exec dos2unix {} +
+          
+          # Force Airflow to serialize the updated file paths
           source /home/lee_jun_yan/airflow/airflow_env/bin/activate
           airflow dags reserialize
