@@ -1,3 +1,4 @@
+# Hello from GitHub Sync Automation!
 """
 DAG 1: Ecommerce Ingestion Pipeline
 Last updated: 2026-05-31 — git-sync test
@@ -25,6 +26,15 @@ default_args = {
     'email_on_failure': False,
 }
 
+# Define documentation text as a variable string
+dag_docs = """
+### DAG 1: Ecommerce Ingestion Pipeline
+* **Last updated:** 2026-05-31 — git-sync test
+* **Purpose:** Handles Airbyte sync only.
+* **Signal:** Emits dataset signal ECOMMERCE_RAW when complete to trigger DAG 2.
+"""
+
+
 # ── DAG definition ───────────────────────────────────────────────
 with DAG(
     dag_id='ecommerce_ingestion',
@@ -33,6 +43,7 @@ with DAG(
     start_date=pendulum.datetime(2025, 1, 1, tz="Asia/Singapore"),
     schedule='0 5 * * *',  # daily at 5am SGT
     catchup=False,
+    doc_md=dag_docs,
     tags=['ecommerce', 'ingestion', 'airbyte']
 ) as dag:
 

@@ -31,6 +31,19 @@ default_args = {
     'email_on_failure': False,
 }
 
+# Define documentation text as a variable string
+dag_docs = """
+DAG 2: Ecommerce Transformation Pipeline
+Triggered automatically when ECOMMERCE_RAW dataset is updated by DAG 1.
+
+Tasks:
+1. enrich_product_tags — LLM enrichment (Ollama) for new products
+2. dbt_run — runs all 7 dbt models in correct dependency order
+3. dbt_test — runs data quality tests
+4. log_completion — logs pipeline completion
+
+No fixed schedule — purely event driven via Dataset-Aware Scheduling.
+"""
 # ── DAG definition ───────────────────────────────────────────────
 with DAG(
     dag_id='ecommerce_transformation',
@@ -39,6 +52,7 @@ with DAG(
     start_date=pendulum.datetime(2025, 1, 1, tz="Asia/Singapore"),
     schedule=[ECOMMERCE_RAW],  # ← triggers when DAG 1 emits ECOMMERCE_RAW signal
     catchup=False,
+    doc_md=dag_docs,
     tags=['ecommerce', 'transformation', 'dataset_scheduling' , 'dbt', 'llm']
 ) as dag:
 
