@@ -1,0 +1,22 @@
+name: Deploy DAGs on Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull Latest Changes from GitHub
+        run: |
+          cd /home/lee_jun_yan/airflow/dags_repo
+          git pull origin main
+
+      - name: Sanitize Line Endings and Force Airflow Sync
+        run: |
+          find /home/lee_jun_yan/airflow/dags_repo/airflow/dags/ -name "*.py" -exec dos2unix {} +
+          source /home/lee_jun_yan/airflow/airflow_env/bin/activate
+          airflow dags reserialize
