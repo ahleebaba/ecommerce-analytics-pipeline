@@ -31,7 +31,7 @@ with DAG(
     description='Airbyte sync for ecommerce data — emits dataset signal on completion',
     default_args=default_args,
     start_date=pendulum.datetime(2025, 1, 1, tz="Asia/Singapore"),
-    schedule='0 5 * * *',,  # daily at 5am SGT
+    schedule='0 5 * * *',  # daily at 5am SGT
     catchup=False,
     tags=['ecommerce', 'ingestion', 'airbyte']
 ) as dag:
