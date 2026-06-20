@@ -1,0 +1,152 @@
+{
+  "info": {
+    "_postman_id": "cf0080df-b3c3-4b7c-bedc-e2ab1f3d5dc8",
+    "name": "DummyJSON — E-commerce Pipeline",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54472830",
+    "_collection_link": "https://go.postman.co/collection/54472830-cf0080df-b3c3-4b7c-bedc-e2ab1f3d5dc8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "01_products",
+      "item": [
+        {
+          "name": "Get all products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products?limit=0",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Source for dim_products. 194 records. No auth. Paginated with limit=0 to get all"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02_users",
+      "item": [
+        {
+          "name": "GET all users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users?limit=0",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Full user table. 208 records. Raw ingestion — field selection handled in dbt staging layer"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03_carts",
+      "item": [
+        {
+          "name": "GET all carts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/carts?limit=0",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "carts"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": "Full cart table. 208 records. No auth. Contains nested products array — will be flattened in dbt staging layer using BigQuery UNNEST()"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04_categories",
+      "item": [
+        {
+          "name": "GET all categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/products/categories",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products",
+                "categories"
+              ]
+            },
+            "description": "All product categories available. No auth. Returns plain array — no pagination wrapper. Simple lookup table — source for dim_categories in dbt"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": ""
+    }
+  ]
+}
